@@ -1,26 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// App.tsx
 
-function App() {
+import React, { useEffect } from 'react';
+import refreshTokenWorkerWrapper from './RefreshTokenV2/RefreshTokenWorkerWrapper';
+import { resetActivityTimer, isUserInactive } from './RefreshTokenV2/UserActivityTracker';
+import RecomendationV2 from './recomendationV2';
+
+const App: React.FC = () => {
+  // useEffect(() => {
+  //   refreshTokenWorkerWrapper.postMessage('start');
+
+  //   document.addEventListener('mousemove', resetActivityTimer);
+  //   document.addEventListener('keydown', resetActivityTimer);
+
+  //   const checkInactivityInterval = setInterval(() => {
+  //     if (isUserInactive()) {
+  //       console.log('User inactive. Perform logout or token refresh logic here.');
+  //       refreshTokenWorkerWrapper.postMessage('logout');
+  //       clearInterval(checkInactivityInterval);
+  //     }
+  //   }, 1000); // Check every 5 minutes
+
+  //   return () => {
+  //     document.removeEventListener('mousemove', resetActivityTimer);
+  //     document.removeEventListener('keydown', resetActivityTimer);
+  //     clearInterval(checkInactivityInterval);
+  //     // refreshTokenWorkerWrapper.terminate();
+
+  //   };
+  // }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {/* Your application content goes here */}
+      <RecomendationV2 />
     </div>
   );
-}
+};
 
 export default App;
