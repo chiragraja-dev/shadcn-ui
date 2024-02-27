@@ -40,18 +40,18 @@ const RecomendationV2: React.FC = () => {
         }
     ]);
 
-    const [editingKey, setEditingKey] = useState('');
-    const [editingCol, setEditingCol] = useState<string | null | any>(null);
-    const [editingRow, setEditingRow] = useState<string | null | any>(null);
+    const [editTherapy, setEditTherapy] = useState('');
+    const [editingTherapyCol, setEditingTherapyCol] = useState<string | null | any>(null);
+    const [editingTherapyRow, setEditingTherapyRow] = useState<string | null | any>(null);
 
-    const isEditing = (record: AyurvedaData) => record.col === editingKey;
+    const isEditing = (record: AyurvedaData) => record.col === editTherapy;
 
     const handleEdit = (key: React.Key) => {
         const recordToEdit = data.find((item) => item.col === key);
         if (recordToEdit) {
-            setEditingKey(key.toString());
-            setEditingCol(recordToEdit.col);
-            setEditingRow(recordToEdit.row);
+            setEditTherapy(key.toString());
+            setEditingTherapyCol(recordToEdit.col);
+            setEditingTherapyRow(recordToEdit.row);
             form.setFieldsValue({
                 col: recordToEdit.col,
                 row: recordToEdit.row,
@@ -60,16 +60,17 @@ const RecomendationV2: React.FC = () => {
     };
 
     const handleSave = async () => {
-        const row = editingRow
+        const row = editingTherapyRow
+        const col = editingTherapyCol
         try {
             const newData = data.map((item) =>
-                item.col === editingKey ? { ...item, row } : item
+                item.col === editTherapy ? { ...item, col, row } : item
             );
             console.log(newData)
             setData(newData);
-            setEditingKey('');
-            setEditingCol(null);
-            setEditingRow(null);
+            setEditTherapy('');
+            setEditingTherapyCol(null);
+            setEditingTherapyRow(null);
             form.resetFields();
         } catch (err) {
             console.log('Validate Failed:', err);
@@ -79,9 +80,9 @@ const RecomendationV2: React.FC = () => {
     const handleDelete = (key: React.Key) => {
         const newData = data.filter((item) => key !== item.col);
         setData(newData);
-        setEditingKey('');
-        setEditingCol(null);
-        setEditingRow(null);
+        setEditTherapy('');
+        setEditingTherapyCol(null);
+        setEditingTherapyRow(null);
         form.resetFields();
     };
 
@@ -94,8 +95,8 @@ const RecomendationV2: React.FC = () => {
                 isEditing(record) ? (
                     <Input
 
-                        value={editingCol}
-                        onChange={(e) => setEditingCol(e.target.value)}
+                        value={editingTherapyCol}
+                        onChange={(e) => setEditingTherapyCol(e.target.value)}
                     />
                 ) : (
                     record.col
@@ -110,8 +111,8 @@ const RecomendationV2: React.FC = () => {
                 isEditing(record) ? (
                     <Input
                         autoFocus
-                        value={editingRow}
-                        onChange={(e) => setEditingRow(e.target.value)}
+                        value={editingTherapyRow}
+                        onChange={(e) => setEditingTherapyRow(e.target.value)}
                     />
                 ) : (
                     record.row
@@ -128,7 +129,7 @@ const RecomendationV2: React.FC = () => {
                             <Button type="link" onClick={handleSave} style={{ marginRight: 8 }}>
                                 Save
                             </Button>
-                            <Button type="link" onClick={() => setEditingKey('')}>
+                            <Button type="link" onClick={() => setEditTherapy('')}>
                                 Cancel
                             </Button>
                         </>
