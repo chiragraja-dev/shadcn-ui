@@ -167,6 +167,7 @@ const RecomendationV2: React.FC = () => {
                 pagination={false}
             />
         </Form>
+    
     );
 };
 

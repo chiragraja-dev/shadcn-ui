@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 import refreshTokenWorkerWrapper from './RefreshTokenV2/RefreshTokenWorkerWrapper';
 import { resetActivityTimer, isUserInactive } from './RefreshTokenV2/UserActivityTracker';
 import RecomendationV2 from './recomendationV2';
+import TimezoneIssue from './TimezoneIssue';
 
 const App: React.FC = () => {
   // useEffect(() => {
@@ -32,7 +33,8 @@ const App: React.FC = () => {
   return (
     <div>
       {/* Your application content goes here */}
-      <RecomendationV2 />
+      {/* <RecomendationV2 /> */}
+      <TimezoneIssue />
     </div>
   );
 };
