@@ -20,7 +20,6 @@ const data: SlotData[] = [
         slotTimes: [
             { slotTime: "01:00 AM", isBooked: false },
             { slotTime: "02:00 AM", isBooked: false },
-            { slotTime: "02:45 AM", isBooked: false },
             { slotTime: "03:00 AM", isBooked: false },
             { slotTime: "04:00 AM", isBooked: false },
             { slotTime: "05:00 AM", isBooked: false },
@@ -75,10 +74,12 @@ const TimezoneIssue: React.FC = () => {
 
 
     function convertToISO(slotDate: string, slotTime: string): any {
-        // console.log(slotTime, "gfhjk")
         const dateTimeString = `${slotDate}T${slotTime.replace(" PM", "").replace(" AM", "")}`;
-        const dateObj = new Date(dateTimeString);
-        return dateObj.toISOString();
+        return dateTimeString
+        // const dateObj = new Date(dateTimeString);
+
+        // console.log(dateTimeString)
+        // return dateObj.toISOString();
     }
 
 
@@ -87,12 +88,13 @@ const TimezoneIssue: React.FC = () => {
 
 
 
-    const localTime = new Date('2024-03-18T01:00:00');
-    const utcTime = new Date(localTime.getTime() + localTime.getTimezoneOffset() * 60000).toISOString();
-    const localTemp = new Date(utcTime);
-    const localTimeString = utcTime.toLocaleString();
+    // const localTime = new Date('2024-03-21T01:00:00');
+    // const utcTY = new Date(localTime.toUTCString())
+    // const utcTime = new Date(localTime.getTime() + localTime.getTimezoneOffset() * 60000).toISOString();
+    // const localTemp = new Date(utcTime);
+    // const localTimeString = utcTime.toLocaleString();
 
-    // console.log(localTimeString);
+    // console.log("utc --", utcTY);
 
 
     // function formatTimestamp(timestamp: string | number | Date) {
@@ -179,16 +181,20 @@ const TimezoneIssue: React.FC = () => {
             {
                 data.map((slotData) => (
                     slotData.slotTimes.map((slotTime, index) => {
-                        const localTime = new Date(convertToISO(slotData.slotDate, slotTime.slotTime));
+                        const localTime = convertToISO(slotData.slotDate, slotTime.slotTime);
+                        const UTC1 = new Date(localTime.toUTCString())
                         const utcTime = new Date(localTime.getTime() + localTime.getTimezoneOffset() * 60000).toISOString();
-                        // console.log(utcTime.toLocaleString());
-                        // console.log(utcTime)
-                        // const localTemp = new Date(utcTime);
-                        // const localTimeString = utcTime.toLocaleString();
+                        const localTemp = new Date(utcTime);
+                        const localTimeString = localTemp.toLocaleString();
+                        console.log("UTC1", UTC1 + " --localTime--", localTime);
+
                         return (<>
-                            <div key={index} className='grid grid-cols-2 border gap-12'>
-                                <p>{formatTimestamp(utcTime.toLocaleString())}</p>
+                            <div key={index} className='grid grid-cols-4 border gap-12'>
+                                <p>{slotTime.slotTime}</p>
+                                <p>{localTime.toLocaleString()}</p>
+
                                 <p> {utcTime.toLocaleString()}</p>
+                                <p>{localTimeString}</p>
                             </div>
                         </>)
                     }
